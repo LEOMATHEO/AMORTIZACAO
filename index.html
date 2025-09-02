@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amortização — Tabela Price</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    body { font-family: system-ui, sans-serif; margin:0; background:#f8fafc; color:#0f172a;}
+    .wrap { max-width: 1200px; margin: auto; padding:20px;}
+    .card { background:#fff; border-radius:14px; padding:14px; margin:6px; box-shadow:0 2px 6px rgba(0,0,0,.1);}
+    input,button{padding:8px; margin-top:4px;}
+    input{width:100%;}
+    table{width:100%; border-collapse:collapse; margin-top:10px; font-size:13px;}
+    th,td{border-bottom:1px solid #ddd; padding:6px; text-align:left;}
+    .big{font-size:18px; font-weight:700;}
+    .ok{background:#dcfce7; color:#166534; border-radius:6px; padding:4px 6px; display:inline-block; margin-top:6px;}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Amortização — Tabela Price <span style="font-size:14px; background:#eee; padding:2px 6px; border-radius:8px;">início 15/09/2025</span></h1>
+
+  <div class="card">
+    <label>Saldo devedor (R$)</label>
+    <input id="saldo" type="number" value="277405.66">
+    <label>Taxa efetiva anual</label>
+    <input id="taxaEfetiva" type="number" value="0.0979">
+    <label>Prazo (meses)</label>
+    <input id="prazo" type="number" value="225">
+    <label>Seguro (R$)</label>
+    <input id="seguro" type="number" value="382.46">
+    <label>Taxa operacional (R$)</label>
+    <input id="taxaOp" type="number" value="25.00">
+    <label>Data de início</label>
+    <input id="dataInicio" type="date" value="2025-09-15">
+  </div>
+
+  <div class="card">
+    <label>Prestação base Price (A+J)</label>
+    <input id="prestacaoBase" readonly>
+    <label>Prestação total estimada</label>
+    <input id="prestacaoTotal" readonly>
+    <label>Sugestão para 60 meses</label>
+    <input id="sugestao" readonly>
+  </div>
+
+  <div class="card">
+    <label>Amortização mensal extra (R$)</label>
+    <input id="extraMensalInput" type="number" value="0">
+    <button onclick="confirmarMensal()">Confirmar amortização mensal</button>
+    <button onclick="limparMensal()">Remover mensal</button>
+    <div id="msgMensal" class="ok" style="display:none">Amortização mensal confirmada.</div>
+  </div>
+
+  <div class="card">
+    <label>Amortização extra pontual — Data</label>
+    <input id="dataPontual" type="date" value="2025-09-15">
+    <label>Valor (R$)</label>
+    <input id="valorPontual" type="number" value="0">
+    <button onclick="confirmarPontual()">Confirmar extra pontual</button>
+    <div id="msgPontual" class="ok" style="display:none">Amortização pontual adicionada.</div>
+    <div id="listaPontuais"></div>
+  </div>
+
+  <div class="card">
+    <div>Prazo estimado: <span id="prazoOut" class="big">--</span></div>
+    <div>Juros: <span id="totJuros">--</span></div>
+    <div>Extras: <span id="totExtras">--</span></div>
+    <div>Prestações: <span id="totPrest">--</span></div>
+  </div>
+
+  <button onclick="exportCSV()">Exportar CSV</button>
+
+  <div class="card">
+    <table id="tabela">
+      <thead><tr><th>#</th><th>Data</th><th>Prestação</th><th>Extra Mensal</th><th>Extra Pontual</th><th>Juros</th><th>Amortização</th><th>Total Amortizado</th><th>Saldo</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
